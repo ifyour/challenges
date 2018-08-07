@@ -8,100 +8,97 @@
       "id": "5895f700f9fc0f352b528e63",
       "title": "Set up a Template Engine",
       "description": [
-        "As a reminder, this project is being built upon the following starter project on <a href='https://glitch.com/#!/import/github/freeCodeCamp/boilerplate-advancednode/'>Glitch</a>, or cloned from <a href='https://github.com/freeCodeCamp/boilerplate-advancednode/'>GitHub</a>.",
-        "A template engine enables you to use static template files (such as those written in <em>Pug</em>) in your app. At runtime, the template engine replaces variables in a template file with actual values which can be supplied by your server, and transforms the template into a static HTML file that is then sent to the client. This approach makes it easier to design an HTML page and allows for displaying of variables on the page without needing to make an API call from the client.",
-        "To set up <em>Pug</em> for use in your project, you will need to add it as a dependency first in your package.json. <code>\"pug\": \"^0.1.0\"</code>",
-        "Now to tell Node/Express to use the templating engine you will have to tell your express <b>app</b> to <b>set</b> 'pug' as the 'view-engine'. <code>app.set('view engine', 'pug')</code>",
-        "Lastly, you should change your response to the request for the index route to <code>res.render</code> with the path to the view <em>views/pug/index.pug</em>.",
-        "If all went as planned, you should refresh your apps home page and see a small message saying you're successfully rending the Pug from our Pug file! Submit your page when you think you've got it right."
+        "注意，这个项目建立在<a href='https://glitch.com/#!/import/github/freeCodeCamp/boilerplate-advancednode/'>Glitch</a>上的启动项目中，也可以从<a href='https://github.com/freeCodeCamp/boilerplate-advancednode/'>GitHub</a>上克隆。",
+        "你可以在 app 的模版引擎中使用静态模板文件（如那些写在<em>Pug</em>里的）。在运行时，模版引擎会用服务端的真实数据替换掉在模版文件中的变量，然后将模版转译成发送给客户端的 HTML 静态文件。这样可以更轻松地去构造 HTML 页面，允许在页面直接显示变量内容而不需要发送 API 请求。",
+        "为了在项目中使用 <em>Pug</em>，你需要在你的 package.json 中添加依赖<code>\"pug\": \"^0.1.0\"</code>",
+        "为了在 Node/Express 中适用模版引擎，你需要在 express 中将 <b>app</b> 的 “view-engine” 设置为 “pug”，就像这样：<code>app.set('view engine', 'pug')</code>。",
+        "最后, 你需要使用<code>res.render</code>方法来渲染 <em>views/pug/index.pug</em> 页面来作为路由请求的返回。",
+        "如果一切顺利， 刷新一下 app 的主页就可以看到 Pug 的成功加载的提示，这时你就可以提交你的页面了。"
       ],
       "tests": [
         {
-          "text": "Pug is a dependency",
+          "text": "Pug 是依赖",
           "testString":
-            "getUserInput => $.get(getUserInput('url')+ '/_api/package.json') .then(data => { var packJson = JSON.parse(data); assert.property(packJson.dependencies, 'pug', 'Your project should list \"pug\" as a dependency'); }, xhr => { throw new Error(xhr.statusText); })"
+            "getUserInput => $.get(getUserInput('url')+ '/_api/package.json') .then(data => { var packJson = JSON.parse(data); assert.property(packJson.dependencies, 'pug', '项目中应使用 \"pug\" 作为依赖'); }, xhr => { throw new Error(xhr.statusText); })"
         },
         {
-          "text": "View engine is Pug",
+          "text": "引擎模版是 Pug",
           "testString":
-            "getUserInput => $.get(getUserInput('url')+ '/_api/server.js') .then(data => { assert.match(data, /('|\")view engine('|\"),( |)('|\")pug('|\")/gi, 'Your project should set Pug as a view engine'); }, xhr => { throw new Error(xhr.statusText); })"
+            "getUserInput => $.get(getUserInput('url')+ '/_api/server.js') .then(data => { assert.match(data, /('|\")view engine('|\"),( |)('|\")pug('|\")/gi, '项目中应使用 Pug 作为模版引擎'); }, xhr => { throw new Error(xhr.statusText); })"
         },
         {
-          "text": "Pug is working",
+          "text": "Pug 正在运行",
           "testString":
-            "getUserInput => $.get(getUserInput('url')+ '/') .then(data => { assert.match(data, /pug-success-message/gi, 'Your projects home page should now be rendered by pug with the projects .pug file unaltered'); }, xhr => { throw new Error(xhr.statusText); })"
+            "getUserInput => $.get(getUserInput('url')+ '/') .then(data => { assert.match(data, /pug-success-message/gi, '你的项目主页应使用 pug 作为渲染引擎，且 .pug 文件不应改变'); }, xhr => { throw new Error(xhr.statusText); })"
         }
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "5895f70bf9fc0f352b528e64",
       "title": "Use a Template Engine's Powers",
       "description": [
-        "As a reminder, this project is being built upon the following starter project on <a href='https://glitch.com/#!/import/github/freeCodeCamp/boilerplate-advancednode/'>Glitch</a>, or cloned from <a href='https://github.com/freeCodeCamp/boilerplate-advancednode/'>GitHub</a>.",
-        "One of the greatest features of using a template engine is being able to pass variables from the server to the template file before rendering it to HTML.",
-        "In your Pug file, you're about to use a variable by referencing the variable name as <code>#{variable_name}</code> inline with other text on an element or by using an equal side on the element without a space such as <code>p= variable_name</code> which sets that p elements text to equal the variable.",
-        "We strongly recommend looking at the syntax and structure of Pug <a href='https://github.com/pugjs/pug'>here</a> on their Githubs README. Pug is all about using whitespace and tabs to show nested elements and cutting down on the amount of code needed to make a beautiful site.",
-        "Looking at our pug file 'index.pug' included in your project, we used the variables <em>title</em> and <em>message</em>",
-        "To pass those alone from our server, you will need to add an object as a second argument to your <em>res.render</em> with the variables and their value. For example, pass this object along setting the variables for your index view: <code>{title: 'Hello', message: 'Please login'</code>",
-        "It should look like: <code>res.render(process.cwd() + '/views/pug/index', {title: 'Hello', message: 'Please login'});</code>",
-        "Now refresh your page and you should see those values rendered in your view in the correct spot as laid out in your index.pug file! Submit your page when you think you've got it right."
+        "注意, 这个项目建立在 <a href='https://glitch.com/#!/import/github/freeCodeCamp/boilerplate-advancednode/'>Glitch</a> 上的启动项目中，也可以从 <a href='https://github.com/freeCodeCamp/boilerplate-advancednode/'>GitHub</a> 上克隆。",
+        "模版引擎最棒的特点之一就是在 HTML 页面展示之前，可以从服务端传变量到模版文件。",
+        "在 Pug 文件中，你可以引用变量名来使用变量，像<code>#{variable_name}</code>插入元素中或像<code>p= variable_name</code>把元素与变量直接写在一起，这表示 p 元素的内容等价于这个变量。",
+        "建议大家在 Pug 的 Githubs README <a href='https://github.com/pugjs/pug'>here</a> 看看它的语法与结构。 Pug 使用空格和标签来展示嵌套元素和间隔大量的代码。",
+        "在 pug 的 'index.pug' 文件中，我们用变量 <em>title</em> 和 <em>message</em>",
+        "从服务器传递这些信息，你需要用变量和数据在 <em>res.render</em> 中添加一个对象作为第二论据。举一个例子，创建一个变量来传递对象：<code>{title: 'Hello', message: 'Please login'</code>到你的主页",
+        "应该这样写：<code>res.render(process.cwd() + '/views/pug/index', {title: 'Hello', message: 'Please login'});</code>",
+        "刷新页面，页面中数据显示正确，这时你就可以提交你的页面了。"
       ],
       "tests": [
         {
-          "text": "Pug render variables correct",
+          "text": "Pug 正确展示变量",
           "testString":
-            "getUserInput => $.get(getUserInput('url')+ '/') .then(data => { assert.match(data, /pug-variable(\"|')>Please login/gi, 'Your projects home page should now be rendered by pug with the projects .pug file unaltered'); }, xhr => { throw new Error(xhr.statusText); })"
+            "getUserInput => $.get(getUserInput('url')+ '/') .then(data => { assert.match(data, /pug-variable(\"|')>Please login/gi, '你的项目主页应使用 pug 作为渲染引擎，且 .pug 文件不应改变'); }, xhr => { throw new Error(xhr.statusText); })"
         }
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "5895f70cf9fc0f352b528e65",
       "title": "Set up Passport",
       "description": [
-        "As a reminder, this project is being built upon the following starter project on <a href='https://glitch.com/#!/import/github/freeCodeCamp/boilerplate-advancednode/'>Glitch</a>, or cloned from <a href='https://github.com/freeCodeCamp/boilerplate-advancednode/'>GitHub</a>.",
-        "It's time to set up <em>Passport</em> so we can finally start allowing a user to register or login to an account! In addition to Passport, we will use Express-session to handle sessions. Using this middleware saves the session id as a cookie in the client and allows us to access the session data using that id on the server. This way we keep personal account information out of the cookie used by the client to verify to our server they are authenticated and just keep the <em>key</em> to access the data stored on the server.",
-        "To set up Passport for use in your project, you will need to add it as a dependency first in your package.json. <code>\"passport\": \"^0.3.2\"</code>",
-        "In addition, add Express-session as a dependency now as well. Express-session has a ton of advanced features you can use but for now we're just going to use the basics! <code>\"express-session\": \"^1.15.0\"</code>",
-        "You will need to set up the session settings now and initialize Passport. Be sure to first create the variables 'session' and 'passport' to require 'express-session' and 'passport' respectively.",
-        "To set up your express app to use use the session we'll define just a few basic options. Be sure to add 'SESSION_SECRET' to your .env file and give it a random value. This is used to compute the hash used to encrypt your cookie!",
+        "注意, 这个项目建立在  <a href='https://glitch.com/#!/import/github/freeCodeCamp/boilerplate-advancednode/'>Glitch</a> 上的启动项目中，也可以从 <a href='https://github.com/freeCodeCamp/boilerplate-advancednode/'>GitHub</a> 上克隆。",
+        "现在我们来创建 <em>Passport</em>，最终可以允许一个用户注册或登录账户。除了 Passport，我们会用 Express-session 来处理会话。在客户端用这个中间件来储存会话 id 作为 cookie 并且通过服务器上的 id 访问会话数据。通过这种方式，我们可以用客户端的 cookie 到服务端验证身份，从而得到个人账户信息，保存  <em>key</em>  来获取存储在服务器上的数据。",
+        "为了在你的项目中创建 Passport 来用，首先你需要在你的 package.json 文件中添加依赖。 <code>\"passport\": \"^0.3.2\"</code>",
+        "此外，还需要添加 Express-session 作为依赖。 Express-session 有许多你可以用的高级特性，但我们现在暂时使用一些基础即可。 <code>\"express-session\": \"^1.15.0\"</code>",
+        "你需要建立会话设置，初始化 Passport。请先确定分别创建了变量 “session” 和 “passport” 来引入 “express-session” and “passport”。",
+        "为了设置你的 express app 可以使用会话，我们要定义一些基础的选项。请确认在你的 .env 文件中添加了 “SESSION_SECRET”，并且创建了一些值。这是计算hash来加密你的 cookie。",
         "<pre>app.use(session({\n  secret: process.env.SESSION_SECRET,\n  resave: true,\n  saveUninitialized: true,\n}));</pre>",
-        "As well you can go ahead and tell your express app to <b>use</b> 'passport.initialize()' and 'passport.session()'. (For example, <code>app.use(passport.initialize());</code>)",
-        "Submit your page when you think you've got it right. If you're running into errors, you can check out the project completed up to this point <a href='https://gist.github.com/JosephLivengood/338a9c5a326923c3826a666d430e65c3'>here</a>."
+        "还有，你可以先告诉你的 express app 去使用 “passport.initialize()” 和 “passport.session()”。（例如，<code>app.use(passport.initialize());</code>）",
+        "思考好后就可以提交你的页面了。如果运行出错，你可以在这儿 <a href='https://gist.github.com/JosephLivengood/338a9c5a326923c3826a666d430e65c3'>here</a> 检查项目的完成情况。"
       ],
       "tests": [
         {
-          "text": "Passort and Express-session are dependencies",
+          "text": "Passort and Express-session 是依赖",
           "testString":
-            "getUserInput => $.get(getUserInput('url')+ '/_api/package.json') .then(data => { var packJson = JSON.parse(data); assert.property(packJson.dependencies, 'passport', 'Your project should list \"passport\" as a dependency'); assert.property(packJson.dependencies, 'express-session', 'Your project should list \"express-session\" as a dependency'); }, xhr => { throw new Error(xhr.statusText); })"
+            "getUserInput => $.get(getUserInput('url')+ '/_api/package.json') .then(data => { var packJson = JSON.parse(data); assert.property(packJson.dependencies, 'passport', '你的项目应使用 \"passport\" 作为依赖'); assert.property(packJson.dependencies, 'express-session', 'Your project should list \"express-session\" as a dependency'); }, xhr => { throw new Error(xhr.statusText); })"
         },
         {
           "text": "Dependencies correctly required",
           "testString":
-            "getUserInput => $.get(getUserInput('url')+ '/_api/server.js') .then(data => { assert.match(data, /require.*(\"|')passport(\"|')/gi, 'You should have required passport'); assert.match(data, /require.*(\"|')express-session(\"|')/gi, 'You should have required express-session'); }, xhr => { throw new Error(xhr.statusText); })"
+            "getUserInput => $.get(getUserInput('url')+ '/_api/server.js') .then(data => { assert.match(data, /require.*(\"|')passport(\"|')/gi, 'You should have required passport'); assert.match(data, /require.*(\"|')express-session(\"|')/gi, '你的项目应引入 express-session'); }, xhr => { throw new Error(xhr.statusText); })"
         },
         {
           "text": "Express app uses new dependencies",
           "testString":
-            "getUserInput => $.get(getUserInput('url')+ '/_api/server.js') .then(data => { assert.match(data, /passport.initialize/gi, 'Your express app should use \"passport.initialize()\"'); assert.match(data, /passport.session/gi, 'Your express app should use \"passport.session()\"'); }, xhr => { throw new Error(xhr.statusText); })"
+            "getUserInput => $.get(getUserInput('url')+ '/_api/server.js') .then(data => { assert.match(data, /passport.initialize/gi, '你的 express app 应使用 \"passport.initialize()\"'); assert.match(data, /passport.session/gi, '你的 express app 应使用 \"passport.session()\"'); }, xhr => { throw new Error(xhr.statusText); })"
         },
         {
           "text": "Session and session secret correctly set up",
           "testString":
-            "getUserInput => $.get(getUserInput('url')+ '/_api/server.js') .then(data => { assert.match(data, /secret:( |)process.env.SESSION_SECRET/gi, 'Your express app should have express-session set up with your secret as process.env.SESSION_SECRET'); }, xhr => { throw new Error(xhr.statusText); })"
+            "getUserInput => $.get(getUserInput('url')+ '/_api/server.js') .then(data => { assert.match(data, /secret:( |)process.env.SESSION_SECRET/gi, '你的 express app 应设置 express-session 并将 process.env.SESSION_SECRET 作为加密'); }, xhr => { throw new Error(xhr.statusText); })"
         }
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "5895f70cf9fc0f352b528e66",
@@ -139,8 +136,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "5895f70cf9fc0f352b528e67",
@@ -169,8 +165,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "5895f70df9fc0f352b528e68",
@@ -197,8 +192,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "5895f70df9fc0f352b528e69",
@@ -226,8 +220,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "5895f70df9fc0f352b528e6a",
@@ -257,8 +250,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "5895f70ef9fc0f352b528e6b",
@@ -279,8 +271,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "58965611f9fc0f352b528e6c",
@@ -308,8 +299,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "58966a17f9fc0f352b528e6d",
@@ -351,8 +341,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "58a25c98f9fc0f352b528e7f",
@@ -379,8 +368,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "589690e6f9fc0f352b528e6e",
@@ -406,8 +394,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "589a69f5f9fc0f352b528e70",
@@ -435,8 +422,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "589a69f5f9fc0f352b528e71",
@@ -468,8 +454,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "589a8eb3f9fc0f352b528e72",
@@ -490,8 +475,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "589fc830f9fc0f352b528e74",
@@ -530,8 +514,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "589fc831f9fc0f352b528e75",
@@ -565,8 +548,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "589fc831f9fc0f352b528e76",
@@ -593,8 +575,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "589fc831f9fc0f352b528e77",
@@ -626,8 +607,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "589fc832f9fc0f352b528e78",
@@ -656,8 +636,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     },
     {
       "id": "589fc832f9fc0f352b528e79",
@@ -685,8 +664,7 @@
       ],
       "solutions": [],
       "hints": [],
-      "challengeType": 2,
-      "translations": {}
+      "challengeType": 2
     }
   ]
 }
